@@ -8,14 +8,26 @@ import {
   Stethoscope, 
   CheckCircle2
 } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 
-interface LandingPageProps {
-  onStartAssessment: () => void;
-}
+export const LandingPage = () => {
+  const { user } = useAuth();
+  const router = useRouter();
 
-export const LandingPage = ({ onStartAssessment }: LandingPageProps) => (
+  const handleStartAssessment = () => {
+    if (user) {
+      // Si está autenticado, ir al dashboard
+      router.push('/dashboard');
+    } else {
+      // Si no está autenticado, ir a login
+      router.push('/login');
+    }
+  };
+
+  return (
   <div className="min-h-screen pt-20">
     {/* Hero Section */}
     <div className="relative overflow-hidden">
@@ -24,41 +36,41 @@ export const LandingPage = ({ onStartAssessment }: LandingPageProps) => (
       <div className="max-w-5xl mx-auto px-4 pt-20 pb-16 text-center">
         <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 mb-8">
           <BrainCircuit className="w-4 h-4 mr-2" />
-          <span className="text-sm font-medium">5th Generation AI for Neonatology</span>
+          <span className="text-sm font-medium">IA de 5ª Generación para Neonatología</span>
         </div>
         
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight leading-tight">
-          Protecting every <br />
+          Protegiendo cada <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-indigo-400">
-            little breath
+            pequeño respiro
           </span>
         </h1>
         
         <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Intelligent monitoring system for parents. Early detection of pneumonia signs and 5 critical respiratory pathologies in neonates through predictive analysis.
+          Sistema inteligente de monitoreo para padres. Detecta tempranamente signos de neumonía y 5 patologías respiratorias críticas en neonatos mediante análisis predictivo.
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button onClick={onStartAssessment} icon={Stethoscope}>
-            Start AI Assessment
+          <Button onClick={handleStartAssessment} icon={Stethoscope}>
+            Iniciar Evaluación IA
           </Button>
           <Button variant="outline" icon={Activity}>
-            View Monitor Demo
+            Ver Demo del Monitor
           </Button>
         </div>
       </div>
     </div>
 
     {/* Features Grid */}
-    <div className="max-w-7xl mx-auto px-4 py-20">
+    <div id="features" className="max-w-7xl mx-auto px-4 py-20">
       <div className="grid md:grid-cols-3 gap-6">
         <Card className="hover:border-teal-500/50 transition-colors group">
           <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-500/20 transition-colors">
             <Wind className="w-6 h-6 text-teal-400" />
           </div>
-          <h3 className="text-xl font-semibold text-white mb-3">Pattern Analysis</h3>
+          <h3 className="text-xl font-semibold text-white mb-3">Análisis de Patrones</h3>
           <p className="text-slate-400">
-            Identifies irregularities in respiratory rate and intercostal retractions using computer vision and sensor data.
+            Identifica irregularidades en la frecuencia respiratoria y tiraje intercostal usando visión computarizada y datos del sensor.
           </p>
         </Card>
 
@@ -66,9 +78,9 @@ export const LandingPage = ({ onStartAssessment }: LandingPageProps) => (
           <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-indigo-500/20 transition-colors">
             <ShieldCheck className="w-6 h-6 text-indigo-400" />
           </div>
-          <h3 className="text-xl font-semibold text-white mb-3">Severity Prediction</h3>
+          <h3 className="text-xl font-semibold text-white mb-3">Predicción de Gravedad</h3>
           <p className="text-slate-400">
-            Algorithm trained to classify pneumonia risk in 3 levels: Observation, Medical Consultation, or Emergency.
+            Algoritmo entrenado para clasificar el riesgo de neumonía en 3 niveles: Observación, Consulta Médica o Urgencia.
           </p>
         </Card>
 
@@ -76,23 +88,23 @@ export const LandingPage = ({ onStartAssessment }: LandingPageProps) => (
           <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-pink-500/20 transition-colors">
             <Baby className="w-6 h-6 text-pink-400" />
           </div>
-          <h3 className="text-xl font-semibold text-white mb-3">Neonatal History</h3>
+          <h3 className="text-xl font-semibold text-white mb-3">Historial Neonatal</h3>
           <p className="text-slate-400">
-            Evolutionary tracking designed specifically for the first weeks of life.
+            Seguimiento evolutivo diseñado específicamente para las primeras semanas de vida.
           </p>
         </Card>
       </div>
     </div>
 
     {/* Diseases Section */}
-    <div className="border-t border-slate-800 bg-slate-900/50 py-24">
+    <div id="diseases" className="border-t border-slate-800 bg-slate-900/50 py-24">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white mb-4">Detection Coverage</h2>
-          <p className="text-slate-400">Our model is calibrated to identify markers of:</p>
+          <h2 className="text-3xl font-bold text-white mb-4">Cobertura de Detección</h2>
+          <p className="text-slate-400">Nuestro modelo está calibrado para identificar marcadores de:</p>
         </div>
         <div className="flex flex-wrap justify-center gap-4">
-          {['Bacterial Pneumonia', 'Bronchiolitis', 'Respiratory Distress Syndrome', 'Transient Tachypnea', 'Infantile Asthma'].map((disease, i) => (
+          {['Neumonía Bacteriana', 'Bronquiolitis', 'Síndrome de Distrés Respiratorio', 'Taquipnea Transitoria', 'Asma Infantil'].map((disease, i) => (
             <div key={i} className="flex items-center px-6 py-3 bg-slate-800 rounded-full border border-slate-700 text-slate-300">
               <CheckCircle2 className="w-5 h-5 text-teal-500 mr-3" />
               {disease}
@@ -102,4 +114,5 @@ export const LandingPage = ({ onStartAssessment }: LandingPageProps) => (
       </div>
     </div>
   </div>
-);
+  );
+};
