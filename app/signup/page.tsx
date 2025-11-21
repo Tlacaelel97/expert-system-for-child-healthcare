@@ -32,7 +32,7 @@ export default function SignUpPage() {
 
     try {
       await signUp(email, password);
-      router.push('/dashboard');
+      router.push('/perfil-neonatal');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al crear la cuenta');
     } finally {

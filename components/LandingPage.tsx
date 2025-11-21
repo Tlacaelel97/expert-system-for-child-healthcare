@@ -80,7 +80,7 @@ export const LandingPage = () => {
           </div>
           <h3 className="text-xl font-semibold text-white mb-3">Predicción de Gravedad</h3>
           <p className="text-slate-400">
-            Algoritmo entrenado para clasificar el riesgo de neumonía en 3 niveles: Observación, Consulta Médica o Urgencia.
+            Algoritmo entrenado para clasificar el riesgo de enfermedades respiratorias en 3 niveles: Observación, Consulta Médica o Urgencia.
           </p>
         </Card>
 
@@ -104,7 +104,7 @@ export const LandingPage = () => {
           <p className="text-slate-400">Nuestro modelo está calibrado para identificar marcadores de:</p>
         </div>
         <div className="flex flex-wrap justify-center gap-4">
-          {['Neumonía Bacteriana', 'Bronquiolitis', 'Síndrome de Distrés Respiratorio', 'Taquipnea Transitoria', 'Asma Infantil'].map((disease, i) => (
+          {['Deshidratación Hipernatrémica', 'Estenosis Hipertrófica de Píloro', 'Neumonia Neonatal', 'Hiperbilirrubinemia', 'Sepsis Neonatal'].map((disease, i) => (
             <div key={i} className="flex items-center px-6 py-3 bg-slate-800 rounded-full border border-slate-700 text-slate-300">
               <CheckCircle2 className="w-5 h-5 text-teal-500 mr-3" />
               {disease}
