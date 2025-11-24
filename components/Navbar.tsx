@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, LogOut } from 'lucide-react';
+import { Activity, LogOut, History } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/Button';
@@ -36,6 +36,12 @@ export const Navbar = () => {
             
             {user ? (
               <>
+                <Link href="/historial">
+                  <button className="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-2">
+                    <History className="w-4 h-4" />
+                    Historial
+                  </button>
+                </Link>
                 <span className="text-slate-400 text-sm hidden lg:inline">{user.email}</span>
                 <Button variant="secondary" onClick={handleLogout} className="!py-2 !px-4 text-sm">
                   <LogOut className="w-4 h-4 mr-2" />

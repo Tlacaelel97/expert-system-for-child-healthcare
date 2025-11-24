@@ -11,6 +11,9 @@ import {
   Baby,
   Droplet
 } from 'lucide-react';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { useAuth } from '@/contexts/AuthContext';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 
@@ -26,6 +29,7 @@ interface AnalysisResult {
 }
 
 export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
+  const { user } = useAuth();
   const [step, setStep] = useState(1);
   const [analyzing, setAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -49,18 +53,50 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
   };
 
   // Simulación de proceso de IA
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('Datos de evaluación:', formData);
     setAnalyzing(true);
-    setTimeout(() => {
-      setAnalyzing(false);
-      setResult({
+
+    try {
+      // Obtener perfil neonatal del localStorage
+      const perfilNeonatal = JSON.parse(localStorage.getItem('perfilNeonatal') || '{}');
+
+      // Simular análisis 
+      await new Promise(resolve => setTimeout(resolve, 2500));
+
+      // Resultado simulado (reemplazar con predicción real del modelo)
+      const resultado = {
         riskLevel: 'Moderado',
         probability: 68,
         primarySuspect: 'Sepsis Neonatal',
         recommendation: 'Se detectan signos de alerta que requieren evaluación médica inmediata. Consulte con un pediatra lo antes posible.'
+      };
+
+      // Guardar evaluación en Firestore
+      if (user) {
+        await addDoc(collection(db, 'evaluaciones'), {
+          userId: user.uid,
+          timestamp: new Date().toISOString(),
+          perfilNeonatal: perfilNeonatal,
+          sintomas: formData,
+          resultado: resultado,
+          createdAt: new Date()
+        });
+        console.log('Evaluación guardada en Firestore');
+      }
+
+      setAnalyzing(false);
+      setResult(resultado);
+    } catch (error) {
+      console.error('Error al procesar evaluación:', error);
+      setAnalyzing(false);
+      setResult({
+        riskLevel: 'Error',
+        probability: 0,
+        primarySuspect: 'Error en análisis',
+        recommendation: 'No se pudo completar el análisis. Por favor intente nuevamente.'
       });
-    }, 2500);
+    }
   };
 
   if (analyzing) {
