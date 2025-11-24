@@ -6,7 +6,10 @@ import {
   Wind, 
   ArrowRight, 
   AlertTriangle,
-  FileText
+  FileText,
+  Pill,
+  Baby,
+  Droplet
 } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
@@ -27,16 +30,35 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
   const [analyzing, setAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
 
+  // Estado del formulario
+  const [formData, setFormData] = useState({
+    usoAntibioticos: '',
+    tos: '',
+    temperatura: '',
+    esfuerzoRespiratorio: '',
+    apetitoSuccion: '',
+    colorHeces: '',
+    frecuenciaPanales: '',
+    coloracionPiel: '',
+    caracteristicasVomito: '',
+    nivelConsciencia: '',
+  });
+
+  const handleFieldChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
   // Simulación de proceso de IA
   const handleSubmit = () => {
+    console.log('Datos de evaluación:', formData);
     setAnalyzing(true);
     setTimeout(() => {
       setAnalyzing(false);
       setResult({
         riskLevel: 'Moderado',
         probability: 68,
-        primarySuspect: 'Bronquiolitis',
-        recommendation: 'Se detecta sibilancia leve y frecuencia respiratoria elevada. Se recomienda consulta pediátrica en las próximas 24h.'
+        primarySuspect: 'Sepsis Neonatal',
+        recommendation: 'Se detectan signos de alerta que requieren evaluación médica inmediata. Consulte con un pediatra lo antes posible.'
       });
     }, 2500);
   };
@@ -107,7 +129,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
 
         {/* Progress Bar */}
         <div className="flex gap-2 mb-8">
-          {[1, 2, 3].map(i => (
+          {[1, 2, 3, 4].map(i => (
             <div key={i} className={`h-1 flex-1 rounded-full transition-colors ${i <= step ? 'bg-teal-500' : 'bg-slate-700'}`} />
           ))}
         </div>
@@ -116,23 +138,81 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
           {step === 1 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
               <h3 className="text-xl text-white font-semibold mb-4 flex items-center">
-                <Thermometer className="mr-2 text-teal-400" /> Signos Vitales
+                <Thermometer className="mr-2 text-teal-400" /> Signos Vitales y Medicación
               </h3>
               
+              {/* Uso de Antibióticos */}
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Temperatura Corporal (°C)</label>
-                <input type="number" placeholder="Ej: 37.5" className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all" />
+                <label className="block text-sm font-medium text-slate-300 mb-3">¿Ha usado antibióticos recientemente?</label>
+                <div className="grid grid-cols-2 gap-3">
+                  {['Si', 'No'].map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => handleFieldChange('usoAntibioticos', option)}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        formData.usoAntibioticos === option
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
               </div>
 
+              {/* Temperatura */}
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Frecuencia Respiratoria (respiraciones/min)</label>
-                <div className="flex gap-4">
-                  <input type="number" placeholder="Ej: 45" className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500" />
-                  <button className="bg-slate-700 px-4 rounded-xl text-slate-300 hover:bg-slate-600 transition-colors">
-                    <Activity className="w-5 h-5" />
-                  </button>
+                <label className="block text-sm font-medium text-slate-300 mb-3">
+                  Temperatura Corporal
+                  <span className="text-xs text-slate-500 ml-2">(Hipotermia &lt; 36°C, Fiebre &gt; 38°C)</span>
+                </label>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { value: 'Hipotermia', label: 'Hipotermia', color: 'blue' },
+                    { value: 'Normal', label: 'Normal', color: 'green' },
+                    { value: 'Fiebre', label: 'Fiebre', color: 'red' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleFieldChange('temperatura', option.value)}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        formData.temperatura === option.value
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
                 </div>
-                <p className="text-xs text-slate-500 mt-2">Utilice el botón para usar el contador manual.</p>
+              </div>
+
+              {/* Nivel de Consciencia */}
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-3">Nivel de Consciencia</label>
+                <div className="grid grid-cols-1 gap-3">
+                  {[
+                    { value: 'Alerta', label: 'Alerta y Activo' },
+                    { value: 'irritableLlanto', label: 'Irritable / Llanto Excesivo' },
+                    { value: 'noDespierta_Flacido', label: 'No Despierta / Flácido' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleFieldChange('nivelConsciencia', option.value)}
+                      className={`p-4 rounded-xl border-2 transition-all text-left ${
+                        formData.nivelConsciencia === option.value
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <Button className="w-full mt-4" onClick={() => setStep(2)}>Siguiente</Button>
@@ -142,29 +222,80 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
           {step === 2 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
               <h3 className="text-xl text-white font-semibold mb-4 flex items-center">
-                <Wind className="mr-2 text-indigo-400" /> Observación Respiratoria
+                <Wind className="mr-2 text-indigo-400" /> Síntomas Respiratorios
               </h3>
 
-              <div className="space-y-4">
-                <label className="block text-sm font-medium text-slate-300">¿Observa hundimiento de costillas al respirar (Tiraje)?</label>
-                <div className="grid grid-cols-2 gap-4">
-                  <button className="p-4 rounded-xl border border-slate-600 hover:border-teal-500 hover:bg-teal-500/10 text-slate-300 hover:text-white transition-all text-left">
-                    No, respira normal
-                  </button>
-                  <button className="p-4 rounded-xl border border-slate-600 hover:border-teal-500 hover:bg-teal-500/10 text-slate-300 hover:text-white transition-all text-left">
-                    Sí, leve o marcado
-                  </button>
+              {/* Tos */}
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-3">Tipo de Tos</label>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { value: 'Ausente', label: 'Ausente' },
+                    { value: 'Seca', label: 'Seca' },
+                    { value: 'Flemas', label: 'Con Flemas' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleFieldChange('tos', option.value)}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        formData.tos === option.value
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <label className="block text-sm font-medium text-slate-300">Sonidos audibles (sin estetoscopio)</label>
-                <div className="space-y-2">
-                  {['Sibilancia (Silbido)', 'Quejido', 'Tos seca', 'Ninguno'].map((opt) => (
-                    <label key={opt} className="flex items-center p-3 rounded-lg bg-slate-900 border border-slate-700 cursor-pointer hover:border-slate-500">
-                      <input type="checkbox" className="w-4 h-4 text-teal-500 rounded bg-slate-800 border-slate-600 focus:ring-teal-500" />
-                      <span className="ml-3 text-slate-300">{opt}</span>
-                    </label>
+              {/* Esfuerzo Respiratorio */}
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-3">Esfuerzo Respiratorio</label>
+                <div className="grid grid-cols-1 gap-3">
+                  {[
+                    { value: 'Normal', label: 'Normal - Respiración tranquila' },
+                    { value: 'Humdimiento', label: 'Hundimiento - Tiraje intercostal' },
+                    { value: 'Aleteo', label: 'Aleteo Nasal' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleFieldChange('esfuerzoRespiratorio', option.value)}
+                      className={`p-4 rounded-xl border-2 transition-all text-left ${
+                        formData.esfuerzoRespiratorio === option.value
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Coloración de Piel */}
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-3">Coloración de la Piel</label>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { value: 'Normal', label: 'Normal' },
+                    { value: 'Azulada', label: 'Azulada' },
+                    { value: 'Amarillenta', label: 'Amarillenta' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleFieldChange('coloracionPiel', option.value)}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        formData.coloracionPiel === option.value
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -179,25 +310,141 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
           {step === 3 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
                <h3 className="text-xl text-white font-semibold mb-4 flex items-center">
-                <FileText className="mr-2 text-pink-400" /> Contexto General
+                <Baby className="mr-2 text-pink-400" /> Alimentación y Digestión
               </h3>
 
+              {/* Apetito y Succión */}
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Edad del Neonato (Semanas)</label>
-                <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white" />
+                <label className="block text-sm font-medium text-slate-300 mb-3">Apetito y Succión</label>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { value: 'Rechaza', label: 'Rechaza' },
+                    { value: 'Normal', label: 'Normal' },
+                    { value: 'Voraz', label: 'Voraz' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleFieldChange('apetitoSuccion', option.value)}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        formData.apetitoSuccion === option.value
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
+              {/* Características del Vómito */}
               <div>
-                 <label className="block text-sm font-medium text-slate-300 mb-2">Comportamiento</label>
-                 <select className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500">
-                   <option>Normal / Activo</option>
-                   <option>Letárgico / Adormecido</option>
-                   <option>Irritable / Llorando</option>
-                   <option>Rechazo al alimento</option>
-                 </select>
+                <label className="block text-sm font-medium text-slate-300 mb-3">Características del Vómito</label>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { value: 'Ninguno', label: 'Ninguno' },
+                    { value: 'Regurgitacion', label: 'Regurgitación' },
+                    { value: 'Proyectil', label: 'Proyectil' },
+                    { value: 'Bilioso', label: 'Bilioso (Verde)' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleFieldChange('caracteristicasVomito', option.value)}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        formData.caracteristicasVomito === option.value
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <div className="bg-indigo-500/10 border border-indigo-500/30 p-4 rounded-lg flex items-start gap-3 mt-6">
+              {/* Color de Heces */}
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-3">Color de las Heces</label>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { value: 'Normales', label: 'Normales' },
+                    { value: 'Mostaza', label: 'Mostaza' },
+                    { value: 'Blancas', label: 'Blancas' },
+                    { value: 'Negras', label: 'Negras' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleFieldChange('colorHeces', option.value)}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        formData.colorHeces === option.value
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Frecuencia de Pañales */}
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-3">Frecuencia de Pañales Mojados</label>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { value: 'Normal', label: 'Normal (6+/día)' },
+                    { value: 'Pocos', label: 'Pocos (3-5/día)' },
+                    { value: 'Ninguno', label: 'Ninguno/Muy pocos' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleFieldChange('frecuenciaPanales', option.value)}
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        formData.frecuenciaPanales === option.value
+                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex gap-4 mt-6">
+                 <Button variant="secondary" onClick={() => setStep(2)} className="flex-1">Atrás</Button>
+                 <Button onClick={() => setStep(4)} className="flex-1">Siguiente</Button>
+              </div>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
+               <h3 className="text-xl text-white font-semibold mb-4 flex items-center">
+                <FileText className="mr-2 text-amber-400" /> Revisión Final
+              </h3>
+
+              <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 space-y-3">
+                <p className="text-sm text-slate-400">Revise los datos ingresados:</p>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div><span className="text-slate-500">Antibióticos:</span> <span className="text-white">{formData.usoAntibioticos || '-'}</span></div>
+                  <div><span className="text-slate-500">Temperatura:</span> <span className="text-white">{formData.temperatura || '-'}</span></div>
+                  <div><span className="text-slate-500">Consciencia:</span> <span className="text-white">{formData.nivelConsciencia || '-'}</span></div>
+                  <div><span className="text-slate-500">Tos:</span> <span className="text-white">{formData.tos || '-'}</span></div>
+                  <div><span className="text-slate-500">Esfuerzo Resp.:</span> <span className="text-white">{formData.esfuerzoRespiratorio || '-'}</span></div>
+                  <div><span className="text-slate-500">Color Piel:</span> <span className="text-white">{formData.coloracionPiel || '-'}</span></div>
+                  <div><span className="text-slate-500">Apetito:</span> <span className="text-white">{formData.apetitoSuccion || '-'}</span></div>
+                  <div><span className="text-slate-500">Vómito:</span> <span className="text-white">{formData.caracteristicasVomito || '-'}</span></div>
+                  <div><span className="text-slate-500">Heces:</span> <span className="text-white">{formData.colorHeces || '-'}</span></div>
+                  <div><span className="text-slate-500">Pañales:</span> <span className="text-white">{formData.frecuenciaPanales || '-'}</span></div>
+                </div>
+              </div>
+
+              <div className="bg-indigo-500/10 border border-indigo-500/30 p-4 rounded-lg flex items-start gap-3">
                 <AlertTriangle className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
                 <p className="text-sm text-indigo-200">
                   Al presionar &quot;Analizar&quot;, los datos serán procesados por el modelo predictivo. Esto no sustituye una consulta médica profesional.
@@ -205,7 +452,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
               </div>
 
               <div className="flex gap-4 mt-6">
-                 <Button variant="secondary" onClick={() => setStep(2)} className="flex-1">Atrás</Button>
+                 <Button variant="secondary" onClick={() => setStep(3)} className="flex-1">Atrás</Button>
                  <Button onClick={handleSubmit} className="flex-1" icon={BrainCircuit}>Analizar con IA</Button>
               </div>
             </div>
