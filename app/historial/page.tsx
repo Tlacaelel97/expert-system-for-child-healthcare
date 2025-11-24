@@ -120,7 +120,6 @@ export default function HistorialPage() {
                           <div><span className="text-slate-500">Color Piel:</span> <span className="text-white">{evaluacion.sintomas.coloracionPiel}</span></div>
                           <div><span className="text-slate-500">Apetito:</span> <span className="text-white">{evaluacion.sintomas.apetitoSuccion}</span></div>
                           <div><span className="text-slate-500">Vómito:</span> <span className="text-white">{evaluacion.sintomas.caracteristicasVomito}</span></div>
-                          <div><span className="text-slate-500">Heces:</span> <span className="text-white">{evaluacion.sintomas.colorHeces}</span></div>
                           <div><span className="text-slate-500">Pañales:</span> <span className="text-white">{evaluacion.sintomas.frecuenciaPanales}</span></div>
                           <div><span className="text-slate-500">Antibióticos:</span> <span className="text-white">{evaluacion.sintomas.usoAntibioticos}</span></div>
                         </div>

@@ -22,7 +22,6 @@ export interface Evaluacion {
     temperatura: string;
     esfuerzoRespiratorio: string;
     apetitoSuccion: string;
-    colorHeces: string;
     frecuenciaPanales: string;
     coloracionPiel: string;
     caracteristicasVomito: string;

@@ -7,9 +7,7 @@ import {
   ArrowRight, 
   AlertTriangle,
   FileText,
-  Pill,
   Baby,
-  Droplet
 } from 'lucide-react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -41,7 +39,6 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
     temperatura: '',
     esfuerzoRespiratorio: '',
     apetitoSuccion: '',
-    colorHeces: '',
     frecuenciaPanales: '',
     coloracionPiel: '',
     caracteristicasVomito: '',
@@ -400,32 +397,6 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                 </div>
               </div>
 
-              {/* Color de Heces */}
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-3">Color de las Heces</label>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { value: 'Normales', label: 'Normales' },
-                    { value: 'Mostaza', label: 'Mostaza' },
-                    { value: 'Blancas', label: 'Blancas' },
-                    { value: 'Negras', label: 'Negras' }
-                  ].map((option) => (
-                    <button
-                      key={option.value}
-                      type="button"
-                      onClick={() => handleFieldChange('colorHeces', option.value)}
-                      className={`p-4 rounded-xl border-2 transition-all ${
-                        formData.colorHeces === option.value
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
-                          : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
-                      }`}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               {/* Frecuencia de Pañales */}
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-3">Frecuencia de Pañales Mojados</label>
@@ -475,7 +446,6 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                   <div><span className="text-slate-500">Color Piel:</span> <span className="text-white">{formData.coloracionPiel || '-'}</span></div>
                   <div><span className="text-slate-500">Apetito:</span> <span className="text-white">{formData.apetitoSuccion || '-'}</span></div>
                   <div><span className="text-slate-500">Vómito:</span> <span className="text-white">{formData.caracteristicasVomito || '-'}</span></div>
-                  <div><span className="text-slate-500">Heces:</span> <span className="text-white">{formData.colorHeces || '-'}</span></div>
                   <div><span className="text-slate-500">Pañales:</span> <span className="text-white">{formData.frecuenciaPanales || '-'}</span></div>
                 </div>
               </div>
