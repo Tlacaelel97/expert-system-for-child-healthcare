@@ -1,21 +1,12 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
 import { Navbar } from '@/components/Navbar';
 import { LandingPage } from '@/components/LandingPage';
 
 export default function App() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    // Si el usuario ya está autenticado, redirigir al dashboard
-    if (!loading && user) {
-      router.push('/dashboard');
-    }
-  }, [user, loading, router]);
+  const { loading } = useAuth();
 
   if (loading) {
     return (
