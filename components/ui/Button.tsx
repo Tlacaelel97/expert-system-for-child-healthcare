@@ -11,9 +11,9 @@ interface ButtonProps {
 export const Button = ({ children, variant = 'primary', onClick, className = "", icon: Icon }: ButtonProps) => {
   const baseStyle = "flex items-center justify-center px-6 py-3 rounded-xl font-medium transition-all duration-200 transform active:scale-95";
   const variants = {
-    primary: "bg-teal-500 hover:bg-teal-400 text-slate-900 shadow-lg shadow-teal-500/20",
-    secondary: "bg-slate-700 hover:bg-slate-600 text-white border border-slate-600",
-    outline: "bg-transparent border border-slate-600 text-slate-300 hover:border-teal-500 hover:text-teal-400"
+    primary: "bg-purple-400 hover:bg-purple-300 text-black shadow-lg shadow-purple-500/20 font-semibold",
+    secondary: "bg-slate-800 hover:bg-slate-700 text-white border border-purple-400/30",
+    outline: "bg-transparent border border-purple-400 text-purple-300 hover:border-purple-300 hover:text-purple-200"
   };
 
   return (

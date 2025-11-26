@@ -100,9 +100,9 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center pt-20">
         <div className="relative w-32 h-32 mb-8">
-          <div className="absolute inset-0 border-4 border-slate-700 rounded-full"></div>
-          <div className="absolute inset-0 border-4 border-t-teal-500 border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
-          <BrainCircuit className="absolute inset-0 m-auto text-teal-500 w-12 h-12 animate-pulse" />
+          <div className="absolute inset-0 border-4 border-slate-800 rounded-full"></div>
+          <div className="absolute inset-0 border-4 border-t-purple-400 border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+          <BrainCircuit className="absolute inset-0 m-auto text-purple-400 w-12 h-12 animate-pulse" />
         </div>
         <h2 className="text-2xl font-bold text-white mb-2">Analizando Biomarcadores</h2>
         <p className="text-slate-400">Procesando síntomas con la base de datos neumológica...</p>
@@ -113,20 +113,20 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
   if (result) {
     return (
       <div className="min-h-screen pt-28 px-4 max-w-3xl mx-auto">
-        <Card className="border-l-4 border-l-amber-500">
+        <Card className="border-l-4 border-l-purple-400">
           <div className="flex items-start justify-between mb-6">
             <div>
               <p className="text-sm text-slate-400 uppercase tracking-wider font-semibold mb-1">Resultado del Análisis</p>
               <h2 className="text-3xl font-bold text-white">Riesgo {result.riskLevel}</h2>
             </div>
-            <div className="bg-amber-500/20 px-4 py-2 rounded-lg">
-              <span className="text-amber-400 font-bold text-xl">{result.probability}%</span>
+            <div className="bg-purple-500/20 px-4 py-2 rounded-lg">
+              <span className="text-purple-300 font-bold text-xl">{result.probability}%</span>
             </div>
           </div>
           
           <div className="space-y-6">
-            <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700">
-              <h3 className="text-teal-400 font-medium mb-2 flex items-center">
+            <div className="bg-slate-900/50 p-4 rounded-xl border border-purple-500/30">
+              <h3 className="text-purple-300 font-medium mb-2 flex items-center">
                 <Activity className="w-4 h-4 mr-2" /> Posible Afección
               </h3>
               <p className="text-white text-lg">{result.primarySuspect}</p>
@@ -163,7 +163,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
         {/* Progress Bar */}
         <div className="flex gap-2 mb-8">
           {[1, 2, 3, 4].map(i => (
-            <div key={i} className={`h-1 flex-1 rounded-full transition-colors ${i <= step ? 'bg-teal-500' : 'bg-slate-700'}`} />
+            <div key={i} className={`h-1 flex-1 rounded-full transition-colors ${i <= step ? 'bg-purple-400' : 'bg-slate-700'}`} />
           ))}
         </div>
 
@@ -171,7 +171,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
           {step === 1 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
               <h3 className="text-xl text-white font-semibold mb-4 flex items-center">
-                <Thermometer className="mr-2 text-teal-400" /> Signos Vitales y Medicación
+                <Thermometer className="mr-2 text-purple-400" /> Signos Vitales y Medicación
               </h3>
               
               {/* Uso de Antibióticos */}
@@ -185,7 +185,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                       onClick={() => handleFieldChange('usoAntibioticos', option)}
                       className={`p-4 rounded-xl border-2 transition-all ${
                         formData.usoAntibioticos === option
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          ? 'border-purple-400 bg-purple-400/10 text-white'
                           : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                       }`}
                     >
@@ -213,7 +213,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                       onClick={() => handleFieldChange('temperatura', option.value)}
                       className={`p-4 rounded-xl border-2 transition-all ${
                         formData.temperatura === option.value
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          ? 'border-purple-400 bg-purple-400/10 text-white'
                           : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                       }`}
                     >
@@ -238,7 +238,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                       onClick={() => handleFieldChange('nivelConsciencia', option.value)}
                       className={`p-4 rounded-xl border-2 transition-all text-left ${
                         formData.nivelConsciencia === option.value
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          ? 'border-purple-400 bg-purple-400/10 text-white'
                           : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                       }`}
                     >
@@ -255,7 +255,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
           {step === 2 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
               <h3 className="text-xl text-white font-semibold mb-4 flex items-center">
-                <Wind className="mr-2 text-indigo-400" /> Síntomas Respiratorios
+                <Wind className="mr-2 text-purple-400" /> Síntomas Respiratorios
               </h3>
 
               {/* Tos */}
@@ -273,7 +273,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                       onClick={() => handleFieldChange('tos', option.value)}
                       className={`p-4 rounded-xl border-2 transition-all ${
                         formData.tos === option.value
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          ? 'border-purple-400 bg-purple-400/10 text-white'
                           : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                       }`}
                     >
@@ -298,7 +298,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                       onClick={() => handleFieldChange('esfuerzoRespiratorio', option.value)}
                       className={`p-4 rounded-xl border-2 transition-all text-left ${
                         formData.esfuerzoRespiratorio === option.value
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          ? 'border-purple-400 bg-purple-400/10 text-white'
                           : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                       }`}
                     >
@@ -323,7 +323,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                       onClick={() => handleFieldChange('coloracionPiel', option.value)}
                       className={`p-4 rounded-xl border-2 transition-all ${
                         formData.coloracionPiel === option.value
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          ? 'border-purple-400 bg-purple-400/10 text-white'
                           : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                       }`}
                     >
@@ -343,7 +343,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
           {step === 3 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
                <h3 className="text-xl text-white font-semibold mb-4 flex items-center">
-                <Baby className="mr-2 text-pink-400" /> Alimentación y Digestión
+                <Baby className="mr-2 text-purple-400" /> Alimentación y Digestión
               </h3>
 
               {/* Apetito y Succión */}
@@ -361,7 +361,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                       onClick={() => handleFieldChange('apetitoSuccion', option.value)}
                       className={`p-4 rounded-xl border-2 transition-all ${
                         formData.apetitoSuccion === option.value
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          ? 'border-purple-400 bg-purple-400/10 text-white'
                           : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                       }`}
                     >
@@ -387,7 +387,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                       onClick={() => handleFieldChange('caracteristicasVomito', option.value)}
                       className={`p-4 rounded-xl border-2 transition-all ${
                         formData.caracteristicasVomito === option.value
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          ? 'border-purple-400 bg-purple-400/10 text-white'
                           : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                       }`}
                     >
@@ -412,7 +412,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                       onClick={() => handleFieldChange('frecuenciaPanales', option.value)}
                       className={`p-4 rounded-xl border-2 transition-all ${
                         formData.frecuenciaPanales === option.value
-                          ? 'border-teal-500 bg-teal-500/10 text-white'
+                          ? 'border-purple-400 bg-purple-400/10 text-white'
                           : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                       }`}
                     >
@@ -432,10 +432,10 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
           {step === 4 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
                <h3 className="text-xl text-white font-semibold mb-4 flex items-center">
-                <FileText className="mr-2 text-amber-400" /> Revisión Final
+                <FileText className="mr-2 text-purple-400" /> Revisión Final
               </h3>
 
-              <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 space-y-3">
+              <div className="bg-slate-900/50 p-4 rounded-xl border border-purple-500/30 space-y-3">
                 <p className="text-sm text-slate-400">Revise los datos ingresados:</p>
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div><span className="text-slate-500">Antibióticos:</span> <span className="text-white">{formData.usoAntibioticos || '-'}</span></div>
@@ -450,9 +450,9 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                 </div>
               </div>
 
-              <div className="bg-indigo-500/10 border border-indigo-500/30 p-4 rounded-lg flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
-                <p className="text-sm text-indigo-200">
+              <div className="bg-purple-500/10 border border-purple-500/30 p-4 rounded-lg flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
+                <p className="text-sm text-purple-200">
                   Al presionar &quot;Analizar&quot;, los datos serán procesados por el modelo predictivo. Esto no sustituye una consulta médica profesional.
                 </p>
               </div>

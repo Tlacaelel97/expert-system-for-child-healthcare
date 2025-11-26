@@ -41,7 +41,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-50 to-teal-100 dark:from-slate-950 dark:to-slate-900 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-black px-4">
       <div className="w-full max-w-md mx-4 sm:mx-0">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
           <div className="text-center mb-8">
@@ -73,7 +73,7 @@ export default function SignUpPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
                 placeholder="tu@ejemplo.com"
               />
             </div>
@@ -91,7 +91,7 @@ export default function SignUpPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
                 placeholder="••••••••"
               />
             </div>
@@ -109,7 +109,7 @@ export default function SignUpPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
                 placeholder="••••••••"
               />
             </div>
@@ -117,7 +117,7 @@ export default function SignUpPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-teal-400 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 disabled:cursor-not-allowed"
+              className="w-full bg-purple-400 hover:bg-purple-300 disabled:bg-purple-500 text-black font-semibold py-3 px-4 rounded-lg transition-colors duration-200 disabled:cursor-not-allowed"
             >
               {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
             </button>
@@ -128,7 +128,7 @@ export default function SignUpPage() {
               ¿Ya tienes una cuenta?{' '}
               <Link
                 href="/login"
-                className="text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-semibold"
+                className="text-purple-400 hover:text-purple-300 dark:text-purple-400 dark:hover:text-purple-300 font-semibold"
               >
                 Inicia sesión aquí
               </Link>
