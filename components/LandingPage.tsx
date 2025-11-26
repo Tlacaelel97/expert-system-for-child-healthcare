@@ -41,13 +41,13 @@ export const LandingPage = () => {
         
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight leading-tight">
           Protegiendo cada <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-indigo-400">
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-indigo-400">
             pequeño respiro
           </span>
         </h1>
         
         <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Sistema inteligente de monitoreo para padres. Detecta tempranamente signos de neumonía y 5 patologías respiratorias críticas en neonatos mediante análisis predictivo.
+          Sistema inteligente de monitoreo para padres. Detecta tempranamente signos críticos de neumonía y otras 5 patologías clave en neonatos, incluyendo Sepsis, Deshidratación e Ictericia, mediante análisis predictivo. Toma decisiones rápidas y seguras.
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

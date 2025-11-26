@@ -77,6 +77,15 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
 
   const handleSubmit = async () => {
     console.log('Datos de evaluación:', formData);
+    
+    // Validar que todos los campos estén completos
+    const camposVacios = Object.entries(formData).filter(([_, value]) => !value);
+    if (camposVacios.length > 0) {
+      alert('Por favor completa todos los campos del formulario antes de continuar.');
+      console.error('Campos vacíos:', camposVacios.map(([key]) => key));
+      return;
+    }
+    
     setAnalyzing(true);
 
     try {
@@ -441,12 +450,11 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
               {/* Características del Vómito */}
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-3">Características del Vómito</label>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {[
                     { value: 'Ninguno', label: 'Ninguno' },
                     { value: 'Regurgitacion', label: 'Regurgitación' },
-                    { value: 'Proyectil', label: 'Proyectil' },
-                    { value: 'Bilioso', label: 'Bilioso (Verde)' }
+                    { value: 'Proyectil', label: 'Proyectil' }
                   ].map((option) => (
                     <button
                       key={option.value}
