@@ -49,7 +49,32 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // Simulación de proceso de IA
+  // Mapeo de acciones a niveles de riesgo y recomendaciones
+  const mapearAccionAResultado = (accion: string, confianza: number) => {
+    const mapeo: Record<string, { riskLevel: string; primarySuspect: string; recommendation: string }> = {
+      'Urgencia_Hospital': {
+        riskLevel: 'Alto',
+        primarySuspect: 'Requiere Atención Hospitalaria Inmediata',
+        recommendation: 'Se detectan signos de alerta graves. Acuda al hospital de inmediato para evaluación y tratamiento urgente.'
+      },
+      'Consulta_Prioritaria': {
+        riskLevel: 'Moderado',
+        primarySuspect: 'Requiere Consulta Médica Prioritaria',
+        recommendation: 'Se detectan signos de alerta que requieren evaluación médica prioritaria. Consulte con un pediatra lo antes posible.'
+      },
+      'Cuidados_Casa': {
+        riskLevel: 'Bajo',
+        primarySuspect: 'Puede Manejarse con Cuidados en Casa',
+        recommendation: 'Los síntomas pueden manejarse con cuidados en casa. Monitoree al bebé y consulte si los síntomas empeoran.'
+      }
+    };
+
+    return {
+      ...mapeo[accion],
+      probability: Math.round(confianza * 100)
+    };
+  };
+
   const handleSubmit = async () => {
     console.log('Datos de evaluación:', formData);
     setAnalyzing(true);
@@ -58,18 +83,59 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
       // Obtener perfil neonatal del localStorage
       const perfilNeonatal = JSON.parse(localStorage.getItem('perfilNeonatal') || '{}');
 
-      // Simular análisis 
-      await new Promise(resolve => setTimeout(resolve, 2500));
-
-      // Resultado simulado (reemplazar con predicción real del modelo)
-      const resultado = {
-        riskLevel: 'Moderado',
-        probability: 68,
-        primarySuspect: 'Sepsis Neonatal',
-        recommendation: 'Se detectan signos de alerta que requieren evaluación médica inmediata. Consulte con un pediatra lo antes posible.'
+      // Preparar datos para la API
+      const apiPayload = {
+        riesgoMaternoInfeccioso: perfilNeonatal.riesgoMaternoInfeccioso,
+        edadGestacional: perfilNeonatal.edadGestacional,
+        histIctericiaHnos: perfilNeonatal.histIctericiaHnos,
+        tipoAlimentacion: perfilNeonatal.tipoAlimentacion,
+        edadNeonatal: perfilNeonatal.edadNeonatal,
+        Primiparidad: perfilNeonatal.Primiparidad,
+        Sexo: perfilNeonatal.Sexo,
+        usoAntibioticos: formData.usoAntibioticos,
+        tos: formData.tos,
+        temperatura: formData.temperatura,
+        esfuerzoRespiratorio: formData.esfuerzoRespiratorio,
+        apetitoSuccion: formData.apetitoSuccion,
+        frecuenciaPanales: formData.frecuenciaPanales,
+        coloracionPiel: formData.coloracionPiel,
+        caracteristicasVomito: formData.caracteristicasVomito,
+        nivelConsciencia: formData.nivelConsciencia
       };
 
-      // Guardar evaluación en Firestore
+      console.log('Perfil Neonatal:', perfilNeonatal);
+      console.log('Form Data:', formData);
+      console.log('API Payload:', apiPayload);
+      console.log('API Payload JSON:', JSON.stringify(apiPayload, null, 2));
+
+      // Llamada a la API de Red Bayesiana
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://neonatal-diagnosis-api-985447916092.us-central1.run.app';
+      const response = await fetch(`${API_URL}/api/v1/diagnosis`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(apiPayload)
+      });
+
+      console.log('Response status:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
+        throw new Error(`Error en la API: ${response.status} - ${errorText}`);
+      }
+
+      const apiResponse = await response.json();
+      console.log('Respuesta de API:', apiResponse);
+
+      // Mapear respuesta de la API a formato del resultado
+      const resultado = mapearAccionAResultado(
+        apiResponse.recomendacion_principal,
+        apiResponse.confianza
+      );
+
+      // Guardar evaluación en Firestore con datos completos de la API
       if (user) {
         await addDoc(collection(db, 'evaluaciones'), {
           userId: user.uid,
@@ -77,6 +143,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
           perfilNeonatal: perfilNeonatal,
           sintomas: formData,
           resultado: resultado,
+          apiResponse: apiResponse, // Guardar respuesta completa de la API
           createdAt: new Date()
         });
         console.log('Evaluación guardada en Firestore');
@@ -289,7 +356,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                 <div className="grid grid-cols-1 gap-3">
                   {[
                     { value: 'Normal', label: 'Normal - Respiración tranquila' },
-                    { value: 'Humdimiento', label: 'Hundimiento - Tiraje intercostal' },
+                    { value: 'Hundimiento', label: 'Hundimiento - Tiraje intercostal' },
                     { value: 'Aleteo', label: 'Aleteo Nasal' }
                   ].map((option) => (
                     <button
