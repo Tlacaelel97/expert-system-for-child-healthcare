@@ -53,8 +53,7 @@ export function useEvaluaciones() {
         setLoading(true);
         const q = query(
           collection(db, 'evaluaciones'),
-          where('userId', '==', user.uid),
-          orderBy('createdAt', 'desc')
+          where('userId', '==', user.uid)
         );
 
         const querySnapshot = await getDocs(q);
@@ -62,6 +61,13 @@ export function useEvaluaciones() {
           id: doc.id,
           ...doc.data()
         })) as Evaluacion[];
+
+        // Ordenar en el cliente en lugar de en Firestore (evita necesidad de índice)
+        evaluacionesData.sort((a, b) => {
+          const dateA = a.createdAt instanceof Date ? a.createdAt : a.createdAt.toDate();
+          const dateB = b.createdAt instanceof Date ? b.createdAt : b.createdAt.toDate();
+          return dateB.getTime() - dateA.getTime();
+        });
 
         setEvaluaciones(evaluacionesData);
       } catch (err) {
