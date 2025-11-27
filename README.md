@@ -22,7 +22,7 @@ Sistema inteligente de monitoreo neonatal que utiliza Redes Bayesianas para dete
 
 1. **Clonar el repositorio**
 ```bash
-git clone <repository-url>
+git clone git@github.com:Tlacaelel97/expert-system-for-child-healthcare.git
 cd expert-system
 ```
 
