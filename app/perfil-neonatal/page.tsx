@@ -80,8 +80,8 @@ export default function PerfilNeonatalPage() {
         <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 sm:p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-teal-500/10 rounded-full mb-4">
-              <Baby className="w-8 h-8 text-teal-400" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-500/10 rounded-full mb-4">
+              <Baby className="w-8 h-8 text-purple-400" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
               Perfil del Neonato
@@ -111,7 +111,7 @@ export default function PerfilNeonatalPage() {
                     onClick={() => handleChange('riesgoMaternoInfeccioso', option)}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       formData.riesgoMaternoInfeccioso === option
-                        ? 'border-teal-500 bg-teal-500/10 text-white'
+                        ? 'border-purple-400 bg-purple-400/10 text-white'
                         : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                     }`}
                   >
@@ -137,7 +137,7 @@ export default function PerfilNeonatalPage() {
                     onClick={() => handleChange('edadGestacional', option.value)}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       formData.edadGestacional === option.value
-                        ? 'border-teal-500 bg-teal-500/10 text-white'
+                        ? 'border-purple-400 bg-purple-400/10 text-white'
                         : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                     }`}
                   >
@@ -160,7 +160,7 @@ export default function PerfilNeonatalPage() {
                     onClick={() => handleChange('histIctericiaHnos', option)}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       formData.histIctericiaHnos === option
-                        ? 'border-teal-500 bg-teal-500/10 text-white'
+                        ? 'border-purple-400 bg-purple-400/10 text-white'
                         : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                     }`}
                   >
@@ -186,7 +186,7 @@ export default function PerfilNeonatalPage() {
                     onClick={() => handleChange('tipoAlimentacion', option.value)}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       formData.tipoAlimentacion === option.value
-                        ? 'border-teal-500 bg-teal-500/10 text-white'
+                        ? 'border-purple-400 bg-purple-400/10 text-white'
                         : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                     }`}
                   >
@@ -212,7 +212,7 @@ export default function PerfilNeonatalPage() {
                     onClick={() => handleChange('edadNeonatal', option.value)}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       formData.edadNeonatal === option.value
-                        ? 'border-teal-500 bg-teal-500/10 text-white'
+                        ? 'border-purple-400 bg-purple-400/10 text-white'
                         : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                     }`}
                   >
@@ -238,7 +238,7 @@ export default function PerfilNeonatalPage() {
                     onClick={() => handleChange('Primiparidad', option.value)}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       formData.Primiparidad === option.value
-                        ? 'border-teal-500 bg-teal-500/10 text-white'
+                        ? 'border-purple-400 bg-purple-400/10 text-white'
                         : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                     }`}
                   >
@@ -264,7 +264,7 @@ export default function PerfilNeonatalPage() {
                     onClick={() => handleChange('Sexo', option.value)}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       formData.Sexo === option.value
-                        ? 'border-teal-500 bg-teal-500/10 text-white'
+                        ? 'border-purple-400 bg-purple-400/10 text-white'
                         : 'border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600'
                     }`}
                   >
@@ -278,7 +278,7 @@ export default function PerfilNeonatalPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-teal-400 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-8"
+              className="w-full bg-purple-400 hover:bg-purple-300 disabled:bg-purple-500 text-black font-semibold py-4 px-6 rounded-xl transition-all duration-200 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-8"
             >
               {loading ? (
                 'Guardando...'

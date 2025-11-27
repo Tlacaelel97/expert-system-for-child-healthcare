@@ -41,21 +41,21 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black px-4">
+    <div className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
       <div className="w-full max-w-md mx-4 sm:mx-0">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
+        <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl shadow-xl p-6 sm:p-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
               Crear Cuenta
             </h1>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+            <p className="text-sm sm:text-base text-slate-400">
               Regístrate para comenzar
             </p>
           </div>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+            <div className="mb-4 p-4 bg-red-500/10 border border-red-500/50 rounded-lg">
+              <p className="text-sm text-red-400">{error}</p>
             </div>
           )}
 
@@ -63,7 +63,7 @@ export default function SignUpPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-sm font-medium text-slate-300 mb-2"
               >
                 Correo Electrónico
               </label>
@@ -73,7 +73,7 @@ export default function SignUpPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                className="w-full px-4 py-3 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent bg-slate-800 text-white transition-all"
                 placeholder="tu@ejemplo.com"
               />
             </div>
@@ -81,7 +81,7 @@ export default function SignUpPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-sm font-medium text-slate-300 mb-2"
               >
                 Contraseña
               </label>
@@ -91,7 +91,7 @@ export default function SignUpPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                className="w-full px-4 py-3 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent bg-slate-800 text-white transition-all"
                 placeholder="••••••••"
               />
             </div>
@@ -99,7 +99,7 @@ export default function SignUpPage() {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-sm font-medium text-slate-300 mb-2"
               >
                 Confirmar Contraseña
               </label>
@@ -109,7 +109,7 @@ export default function SignUpPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+                className="w-full px-4 py-3 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent bg-slate-800 text-white transition-all"
                 placeholder="••••••••"
               />
             </div>
@@ -124,11 +124,11 @@ export default function SignUpPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-slate-400">
               ¿Ya tienes una cuenta?{' '}
               <Link
                 href="/login"
-                className="text-purple-400 hover:text-purple-300 dark:text-purple-400 dark:hover:text-purple-300 font-semibold"
+                className="text-purple-400 hover:text-purple-300 font-semibold"
               >
                 Inicia sesión aquí
               </Link>

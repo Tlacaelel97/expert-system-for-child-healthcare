@@ -30,7 +30,7 @@ export default function App() {
       {/* Footer Simple */}
       <footer className="border-t border-slate-900 bg-slate-950 py-8 mt-auto">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-slate-600 text-sm">© 2025 NeumoGuard. Diseñado para el cuidado neonatal.</p>
+          <p className="text-slate-600 text-sm">© 2025 predIAgnostic. Diseñado para el cuidado neonatal.</p>
         </div>
       </footer>
     </div>

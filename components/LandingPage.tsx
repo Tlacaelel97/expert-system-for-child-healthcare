@@ -68,9 +68,9 @@ export const LandingPage = () => {
           <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-500/20 transition-colors">
             <Wind className="w-6 h-6 text-teal-400" />
           </div>
-          <h3 className="text-xl font-semibold text-white mb-3">Análisis de Patrones</h3>
+          <h3 className="text-xl font-semibold text-white mb-3">Análisis Inteligente</h3>
           <p className="text-slate-400">
-            Identifica irregularidades en la frecuencia respiratoria y tiraje intercostal usando visión computarizada y datos del sensor.
+            Red Bayesiana que analiza síntomas y perfil neonatal para inferir diagnósticos probables y recomendar acciones médicas apropiadas.
           </p>
         </Card>
 
@@ -78,9 +78,9 @@ export const LandingPage = () => {
           <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-indigo-500/20 transition-colors">
             <ShieldCheck className="w-6 h-6 text-indigo-400" />
           </div>
-          <h3 className="text-xl font-semibold text-white mb-3">Predicción de Gravedad</h3>
+          <h3 className="text-xl font-semibold text-white mb-3">Recomendación Médica</h3>
           <p className="text-slate-400">
-            Algoritmo entrenado para clasificar el riesgo de enfermedades respiratorias en 3 niveles: Observación, Consulta Médica o Urgencia.
+            Clasifica el nivel de atención requerida en 3 categorías: Cuidados en Casa, Consulta Prioritaria o Urgencia Hospitalaria.
           </p>
         </Card>
 
@@ -88,9 +88,9 @@ export const LandingPage = () => {
           <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-pink-500/20 transition-colors">
             <Baby className="w-6 h-6 text-pink-400" />
           </div>
-          <h3 className="text-xl font-semibold text-white mb-3">Historial Neonatal</h3>
+          <h3 className="text-xl font-semibold text-white mb-3">Historial de Evaluaciones</h3>
           <p className="text-slate-400">
-            Seguimiento evolutivo diseñado específicamente para las primeras semanas de vida.
+            Registro completo de consultas y recomendaciones que los padres pueden compartir con el médico para un mejor seguimiento.
           </p>
         </Card>
       </div>
