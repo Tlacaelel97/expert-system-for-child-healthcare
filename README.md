@@ -1,116 +1,116 @@
 # predIAgnostic
 
-Sistema inteligente de monitoreo neonatal que utiliza Redes Bayesianas para detectar tempranamente signos críticos de neumonía y otras 5 patologías clave en neonatos, incluyendo Sepsis, Deshidratación e Ictericia.
+Intelligent neonatal monitoring system that uses Bayesian Networks to detect early critical signs of pneumonia and 5 other key pathologies in neonates, including Sepsis, Dehydration, and Jaundice.
 
-## Características
+## Features
 
-- **Análisis Inteligente**: Red Bayesiana que analiza síntomas y perfil neonatal para inferir diagnósticos probables
-- **Recomendación Médica**: Clasifica el nivel de atención en 3 categorías: Cuidados en Casa, Consulta Prioritaria o Urgencia Hospitalaria
-- **Historial de Evaluaciones**: Registro completo que los padres pueden compartir con el médico
-- **Autenticación**: Sistema de registro e inicio de sesión con Firebase
-- **Perfil Neonatal**: Captura información del bebé para personalizar el análisis
+- **Intelligent Analysis**: Bayesian Network that analyzes symptoms and neonatal profile to infer probable diagnoses
+- **Medical Recommendation**: Classifies the level of care required into 3 categories: Home Care, Priority Consultation, or Hospital Emergency
+- **Evaluation History**: Complete record that parents can share with the doctor
+- **Authentication**: Registration and login system with Firebase
+- **Neonatal Profile**: Captures baby information to personalize the analysis
 
-## Patologías Detectadas
+## Detected Pathologies
 
-- Neumonía Neonatal
-- Sepsis Neonatal
-- Deshidratación Hipernatrémica
-- Hiperbilirrubinemia (Ictericia)
-- Estenosis Hipertrófica de Píloro
+- Neonatal Pneumonia
+- Neonatal Sepsis
+- Hypernatremic Dehydration
+- Hyperbilirubinemia (Jaundice)
+- Hypertrophic Pyloric Stenosis
 
-## Instalación
+## Installation
 
-1. **Clonar el repositorio**
+1. **Clone the repository**
 ```bash
 git clone git@github.com:Tlacaelel97/expert-system-for-child-healthcare.git
 cd expert-system
 ```
 
-2. **Instalar dependencias**
+2. **Install dependencies**
 ```bash
 npm install
 ```
 
-3. **Configurar variables de entorno**
+3. **Configure environment variables**
 
-Crea un archivo `.env.local` en la raíz del proyecto con las siguientes variables:
+Create a `.env.local` file in the project root with the following variables:
 
 ```env
 # Firebase Configuration
-NEXT_PUBLIC_FIREBASE_API_KEY=tu_api_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=tu_auth_domain
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=tu_project_id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=tu_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=tu_app_id
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
-# API de Red Bayesiana 
+# Bayesian Network API 
 NEXT_PUBLIC_API_URL=https://neonatal-diagnosis-api-985447916092.us-central1.run.app
 ```
 
-4. **Ejecutar el servidor de desarrollo**
+4. **Run the development server**
 ```bash
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Flujo de Usuario
+## User Flow
 
-1. **Registro/Login**: El usuario crea una cuenta o inicia sesión
-2. **Perfil Neonatal**: Completa información del bebé (edad gestacional, tipo de alimentación, etc.)
-3. **Evaluación**: Responde cuestionario sobre síntomas actuales del neonato
-4. **Resultado**: Recibe recomendación basada en análisis de Red Bayesiana
-5. **Historial**: Accede a evaluaciones previas para compartir con el médico
+1. **Registration/Login**: User creates an account or logs in
+2. **Neonatal Profile**: Completes baby information (gestational age, feeding type, etc.)
+3. **Evaluation**: Answers questionnaire about current neonate symptoms
+4. **Result**: Receives recommendation based on Bayesian Network analysis
+5. **History**: Accesses previous evaluations to share with the doctor
 
-## Tecnologías
+## Technologies
 
 - **Frontend**: Next.js 16, React, TypeScript, Tailwind CSS
 - **Backend**: Firebase (Authentication & Firestore)
-- **IA**: Red Bayesiana (API en Google Cloud Run)
+- **AI**: Bayesian Network (API on Google Cloud Run)
 - **UI**: Lucide Icons, Custom Components
 
-## Estructura del Proyecto
+## Project Structure
 
 ```
 expert-system/
-├── app/                    # Páginas de Next.js
-│   ├── dashboard/         # Dashboard principal
-│   ├── historial/         # Historial de evaluaciones
-│   ├── login/            # Página de login
-│   ├── signup/           # Página de registro
-│   └── perfil-neonatal/  # Formulario de perfil
-├── components/            # Componentes reutilizables
-│   ├── AssessmentForm.tsx # Formulario de evaluación
-│   ├── LandingPage.tsx   # Página de inicio
-│   └── Navbar.tsx        # Barra de navegación
-├── contexts/             # Contextos de React
-│   └── AuthContext.tsx   # Contexto de autenticación
+├── app/                    # Next.js pages
+│   ├── dashboard/         # Main dashboard
+│   ├── historial/         # Evaluation history
+│   ├── login/            # Login page
+│   ├── signup/           # Registration page
+│   └── perfil-neonatal/  # Profile form
+├── components/            # Reusable components
+│   ├── AssessmentForm.tsx # Evaluation form
+│   ├── LandingPage.tsx   # Landing page
+│   └── Navbar.tsx        # Navigation bar
+├── contexts/             # React contexts
+│   └── AuthContext.tsx   # Authentication context
 ├── hooks/                # Custom hooks
 │   ├── useEvaluaciones.ts
 │   └── usePerfilNeonatal.ts
-└── lib/                  # Utilidades
-    └── firebase.ts       # Configuración de Firebase
+└── lib/                  # Utilities
+    └── firebase.ts       # Firebase configuration
 ```
 
-## Reglas de Firestore
+## Firestore Rules
 
-Las reglas de seguridad están configuradas para:
-- Usuarios solo pueden leer/escribir sus propios datos
-- Colecciones: `perfiles`, `evaluaciones`
+Security rules are configured for:
+- Users can only read/write their own data
+- Collections: `perfiles`, `evaluaciones`
 
-## API de Red Bayesiana
+## Bayesian Network API
 
-El sistema se conecta a una API de Red Bayesiana desplegada en Google Cloud Run que:
-- Recibe 16 variables (7 del perfil + 9 síntomas)
-- Retorna acción recomendada y nivel de confianza
+The system connects to a Bayesian Network API deployed on Google Cloud Run that:
+- Receives 16 variables (7 from profile + 9 symptoms)
+- Returns recommended action and confidence level
 - Endpoint: `POST /api/v1/diagnosis`
 
-## Licencia
+## License
 
-Este proyecto fue desarrollado como parte de un proyecto académico de Inteligencia Artificial.
+This project was developed as part of an Artificial Intelligence academic project.
 
-## Autores
+## Authors
 
 - [Josue E. Arguelles Sedano](mailto:josue.arguelles@umam.edu)
 - [Carlos Camargo Romero](mailto:carlos.camargo@unam.edu)
