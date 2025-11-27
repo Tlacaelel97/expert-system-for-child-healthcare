@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Baby, ArrowRight } from 'lucide-react';
 
@@ -11,6 +11,7 @@ export default function PerfilNeonatalPage() {
   const { user } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [loadingProfile, setLoadingProfile] = useState(true);
   const [error, setError] = useState('');
 
   const [formData, setFormData] = useState({
@@ -22,6 +23,40 @@ export default function PerfilNeonatalPage() {
     Primiparidad: '',
     Sexo: '',
   });
+
+  // Cargar perfil existente si existe
+  useEffect(() => {
+    const loadProfile = async () => {
+      if (!user) {
+        setLoadingProfile(false);
+        return;
+      }
+
+      try {
+        const docRef = doc(db, 'perfiles', user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setFormData({
+            riesgoMaternoInfeccioso: data.riesgoMaternoInfeccioso || '',
+            edadGestacional: data.edadGestacional || '',
+            histIctericiaHnos: data.histIctericiaHnos || '',
+            tipoAlimentacion: data.tipoAlimentacion || '',
+            edadNeonatal: data.edadNeonatal || '',
+            Primiparidad: data.Primiparidad || '',
+            Sexo: data.Sexo || '',
+          });
+        }
+      } catch (err) {
+        console.error('Error cargando perfil:', err);
+      } finally {
+        setLoadingProfile(false);
+      }
+    };
+
+    loadProfile();
+  }, [user]);
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -74,6 +109,21 @@ export default function PerfilNeonatalPage() {
     return null;
   }
 
+  // Mostrar loading mientras carga el perfil
+  if (loadingProfile) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-950">
+        <div className="text-center">
+          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-purple-400 border-r-transparent"></div>
+          <p className="mt-4 text-slate-400">Cargando perfil...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Verificar si es edición (ya existe un perfil)
+  const isEditing = Object.values(formData).some(value => value !== '');
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 py-12 px-4">
       <div className="max-w-3xl mx-auto">
@@ -84,10 +134,12 @@ export default function PerfilNeonatalPage() {
               <Baby className="w-8 h-8 text-purple-400" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-              Perfil del Neonato
+              {isEditing ? 'Editar Perfil del Neonato' : 'Perfil del Neonato'}
             </h1>
             <p className="text-slate-400">
-              Completa la información del bebé para personalizar el monitoreo
+              {isEditing 
+                ? 'Actualiza la información del bebé según sea necesario' 
+                : 'Completa la información del bebé para personalizar el monitoreo'}
             </p>
           </div>
 
@@ -284,7 +336,7 @@ export default function PerfilNeonatalPage() {
                 'Guardando...'
               ) : (
                 <>
-                  Continuar al Dashboard
+                  {isEditing ? 'Actualizar Perfil' : 'Continuar'}
                   <ArrowRight className="w-5 h-5" />
                 </>
               )}

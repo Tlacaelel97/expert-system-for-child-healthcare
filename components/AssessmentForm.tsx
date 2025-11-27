@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Activity, 
   BrainCircuit, 
@@ -8,7 +8,10 @@ import {
   AlertTriangle,
   FileText,
   Baby,
+  Edit,
+  Info,
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/contexts/AuthContext';
@@ -28,6 +31,7 @@ interface AnalysisResult {
 
 export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
   const { user } = useAuth();
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [analyzing, setAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -45,8 +49,23 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
     nivelConsciencia: '',
   });
 
+  // Cargar datos guardados del formulario al montar
+  useEffect(() => {
+    const savedFormData = localStorage.getItem('assessmentFormData');
+    if (savedFormData) {
+      try {
+        setFormData(JSON.parse(savedFormData));
+      } catch (error) {
+        console.error('Error cargando datos del formulario:', error);
+      }
+    }
+  }, []);
+
   const handleFieldChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    const newFormData = { ...formData, [field]: value };
+    setFormData(newFormData);
+    // Guardar en localStorage cada vez que cambia
+    localStorage.setItem('assessmentFormData', JSON.stringify(newFormData));
   };
 
   // Mapeo de acciones a niveles de riesgo y recomendaciones
@@ -79,7 +98,7 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
     console.log('Datos de evaluación:', formData);
     
     // Validar que todos los campos estén completos
-    const camposVacios = Object.entries(formData).filter(([_, value]) => !value);
+    const camposVacios = Object.entries(formData).filter(([, value]) => !value);
     if (camposVacios.length > 0) {
       alert('Por favor completa todos los campos del formulario antes de continuar.');
       console.error('Campos vacíos:', camposVacios.map(([key]) => key));
@@ -160,6 +179,9 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
 
       setAnalyzing(false);
       setResult(resultado);
+      
+      // Limpiar formulario guardado después de análisis exitoso
+      localStorage.removeItem('assessmentFormData');
     } catch (error) {
       console.error('Error al procesar evaluación:', error);
       setAnalyzing(false);
@@ -522,6 +544,23 @@ export const AssessmentForm = ({ onBack }: AssessmentFormProps) => {
                   <div><span className="text-slate-500">Apetito:</span> <span className="text-white">{formData.apetitoSuccion || '-'}</span></div>
                   <div><span className="text-slate-500">Vómito:</span> <span className="text-white">{formData.caracteristicasVomito || '-'}</span></div>
                   <div><span className="text-slate-500">Pañales:</span> <span className="text-white">{formData.frecuenciaPanales || '-'}</span></div>
+                </div>
+              </div>
+
+              <div className="bg-blue-500/10 border border-blue-500/30 p-4 rounded-lg flex items-start gap-3">
+                <Info className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <p className="text-sm text-blue-200 mb-2">
+                    El análisis utiliza el perfil neonatal guardado. Si necesitas actualizar la información del bebé (edad gestacional, tipo de alimentación, etc.), puedes editar el perfil.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => router.push('/perfil-neonatal')}
+                    className="text-sm text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1 transition-colors"
+                  >
+                    <Edit className="w-4 h-4" />
+                    Editar Perfil Neonatal
+                  </button>
                 </div>
               </div>
 

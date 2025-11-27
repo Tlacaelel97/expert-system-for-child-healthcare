@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, LogOut, History } from 'lucide-react';
+import { Activity, LogOut, History, UserCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/Button';
@@ -40,6 +40,12 @@ export const Navbar = () => {
                   <button className="text-purple-300 hover:text-purple-200 transition-colors text-sm flex items-center gap-2">
                     <History className="w-4 h-4" />
                     Historial
+                  </button>
+                </Link>
+                <Link href="/perfil-neonatal">
+                  <button className="text-purple-300 hover:text-purple-200 transition-colors text-sm flex items-center gap-2">
+                    <UserCircle className="w-4 h-4" />
+                    Editar Perfil
                   </button>
                 </Link>
                 <span className="text-slate-400 text-sm hidden lg:inline">{user.email}</span>
