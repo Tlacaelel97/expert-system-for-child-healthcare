@@ -47,7 +47,7 @@ export const LandingPage = () => {
         </h1>
         
         <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Sistema inteligente de monitoreo para padres. Detecta tempranamente signos críticos de neumonía y otras 5 patologías clave en neonatos, incluyendo Sepsis, Deshidratación e Ictericia, mediante análisis predictivo. Toma decisiones rápidas y seguras.
+          Sistema inteligente de monitoreo para padres. Detecta tempranamente signos críticos de neumonía y otras 4 patologías clave en neonatos, incluyendo Sepsis, Deshidratación e Ictericia, mediante análisis predictivo. Toma decisiones rápidas y seguras.
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
